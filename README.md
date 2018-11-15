@@ -1,14 +1,16 @@
 
-# Customizing Visualization with Matplotlib - Lab
+# Customizing Visualization with `matplotlib` 
+## Objectives
+
+* Understand matplotlib plot structure for customizing plots.
+* Differentiate between absolute and relative plotting techniques.
+* Implement and tweak high level objects in matplotlib including figure and axes.
+
+
 
 ## Introduction
 
-This lab will give you a chance to practice generating some basic visualizations using the techniques learnt in the previous lesson. 
-
-## Objectives
-You will be able to:
-* Change styles and attributes for plotting objects in python to allow customisation
-* Customize plots with titles, labels and positioning
+This lab requires you to draw some basic visualizations using the techniques learned in the previous lesson. 
 
 Let's let's give you a head start by generating some data for you to plot:
 
@@ -50,12 +52,16 @@ print (x, y, z)
      9604 9801]
 
 
-Import `matplotlib.pyplot` as `plt` and set `%matplotlib inline`  for generating inline images in jupyter notebooks. 
+Import `matplotlib.pyplot` as `plt` and set `%matplotlib inline`  for generating inline images in jupyter notebooks.
+>**Notes:** After finishing this lesson comment out the line for `%matplotlib inline` to pass the pytest
 
 
 ```python
 # import matplotlib.pyplot and set inline plotting 
+import matplotlib.pyplot as plt
 
+# Comment out after finishing lab to pass the pytest
+%matplotlib inline
 ```
 
 Now that we have our data all set and matplotlib in our python environment, we can try some basic plotting techniques.
@@ -70,11 +76,17 @@ Perform the following steps in the cell below:
 
 
 ```python
-
+fig = plt.figure()
+ax = fig.add_axes([0,0,1,1])
+ax.plot(x,z)
+ax.set_xlabel('x-axis label')
+ax.set_ylabel('y-axis label')
+ax.set_title('Plot title')
+plt.show()
 ```
 
 
-![png](index_files/index_9_0.png)
+![png](index_files/index_6_0.png)
 
 
 This was easy, let's move on to drawing multiple plots within a figure space. 
@@ -90,11 +102,24 @@ Perform following actions:
 
 
 ```python
+fig = plt.figure()
+ax1 = fig.add_axes([0,0,1,1])
+ax2 = fig.add_axes([.2,.6,.3,.3])
 
+ax1.plot(x,y)
+ax1.set_xlabel('variable - x')
+ax1.set_ylabel('variable - y')
+ax1.set_title("Large Plot")
+
+ax2.plot(x,y)
+ax2.set_xlabel('variable - x')
+ax2.set_ylabel('variable - y')
+ax2.set_title("Small Plot")
+plt.show()
 ```
 
 
-![png](index_files/index_11_0.png)
+![png](index_files/index_8_0.png)
 
 
 ## Exercise 3
@@ -116,11 +141,29 @@ Perform following tasks in the cell below:
 
 
 ```python
+fig = plt.figure(figsize = (8,6))
 
+ax = fig.add_axes([0,0,1,1])
+ax2 = fig.add_axes([0.2,0.5,.4,.4])
+
+ax.plot(x,z, color = 'green')
+ax.set_xlabel('variable - x')
+ax.set_ylabel('variable - z')
+ax.set_title ('Outer Plot')
+
+
+ax2.plot(x,y, color = 'red')
+ax2.set_xlabel('variable - x')
+ax2.set_ylabel('variable - y')
+ax2.set_title('Inserted Plot')
+ax2.set_xlim(15,30)
+ax2.set_ylim(30,80)
+
+plt.show()
 ```
 
 
-![png](index_files/index_13_0.png)
+![png](index_files/index_10_0.png)
 
 
 ## Exercise 4
@@ -131,16 +174,32 @@ Perform following steps in the cell below:
 * Add two axes using relative subplots to the figure by dividing it in 1 row and 2 columns
 * Plot (x,y) and (x,z) on the ax1 and ax2 respectively. 
 * Set the line width of first axes to 3, line style as dotted and color it red.
-* Set the line width of second axes to5, line style as dash-dot (-.) and color it blue.
+* Set the line width of second axes to 5, line style as dash-dot (-.) and color it blue.
 * Give the plots some labels and titles
 
 
 ```python
+new_figure = plt.figure(figsize=(8,6))
 
+ax = new_figure.add_subplot(121)
+ax2 = new_figure.add_subplot(122)
+
+ax.plot(x, y, color='red', linewidth=3, linestyle = ':')
+ax2.plot(x, z, color='blue', linewidth=5, linestyle = '-.')
+
+ax.set_xlabel('variable - x')
+ax.set_ylabel('variable - y')
+ax.set_title ('Left Plot')
+
+ax2.set_xlabel('variable - x')
+ax2.set_ylabel('variable - z')
+ax2.set_title ('Right Plot')
+
+plt.show()
 ```
 
 
-![png](index_files/index_15_0.png)
+![png](index_files/index_12_0.png)
 
 
 ## Exercise 5
@@ -149,16 +208,32 @@ Above figure looks fine but a bit out of proportion. Let's resize this to make t
 
 
 ```python
+new_figure = plt.figure(figsize=(18,8))
 
+ax = new_figure.add_subplot(121)
+ax2 = new_figure.add_subplot(122)
+
+ax.plot(x, y, color='red', linewidth=3, linestyle = '-')
+ax2.scatter(x, z, color='blue',  marker='^')
+
+ax.set_xlabel('variable - x')
+ax.set_ylabel('variable - y')
+ax.set_title ('Left Plot')
+
+ax2.set_xlabel('variable - x')
+ax2.set_ylabel('variable - z')
+ax2.set_title ('Right Plot')
+
+plt.show()
 ```
 
 
-![png](index_files/index_17_0.png)
+![png](index_files/index_14_0.png)
 
 
-Congratulations, You have now learnt the basics plotting/labelling and customization techniques in matplotlib. Following lessons will focus on employing these techniques to plot for multiple data types in different analysis contexts. 
+Congratulations, You have now learned the basics plotting/labeling and customization techniques in matplotlib. Following lessons will focus on employing these techniques to plot for multiple data types in different analysis contexts. 
 
 
 ### Summary :
 
-This lab focused on ensuring that you understand the basics plotting techqniues in matplotlib using plotting objects and functions to draw single plots, multiple/subplots using absolute and relative plotting. You also learnt how to customize the plots with labels, titles and axes definitions. 
+This lab focused on ensuring that you understand the basics plotting techniques in matplotlib using plotting objects and functions to draw single plots, multiple/subplots using absolute and relative plotting. You also learned how to customize the plots with labels, titles and axes definitions. 
